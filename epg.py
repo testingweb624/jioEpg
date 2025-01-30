@@ -18,14 +18,14 @@ error = []
 result = []
 done = 0
 proxies = {
-    "http": "http://0.0.0.0:8080",
-    "https": "http://0.0.0.0:8080",
+    "http": "http://103.231.45.145:1080",
+    "https": "http://103.231.45.145:1080",
 }
 # fallback_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
 # fallback_proxy = "27.107.27.8:80" not working
 # fallback_proxy = "139.59.1.14:8080"
 # fallback_proxy = "20.219.235.172:3129"
-fallback_proxy = "0.0.0.0:8080"
+fallback_proxy = "103.231.45.145:1080"
 # fallback_proxy = "144.24.102.221:3128"
 residential_proxy = os.getenv("RES_PXY", "0.0.0.0:8080")
 residential_proxy2 = os.getenv("RES_PXY2", "0.0.0.0:8080")
