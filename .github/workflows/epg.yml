@@ -25,7 +25,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install proxy.py
           pip install requests xmltodict pysocks
-          proxy --hostname 0.0.0.0 --port 8080 &
+       # proxy --hostname 0.0.0.0 --port 8080 &
       - name: Get EPG Data
         run: python epg.py epg.xml.gz
         env:
