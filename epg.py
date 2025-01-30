@@ -18,8 +18,8 @@ error = []
 result = []
 done = 0
 proxies = {
-    "http": "http://103.231.45.145:1080",
-    "https": "http://103.231.45.145:1080",
+    "http": "http://593b-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app",
+    "https": "https://593b-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app",
 }
 # fallback_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
 # fallback_proxy = "27.107.27.8:80" not working
