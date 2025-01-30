@@ -25,13 +25,13 @@ proxies = {
 # fallback_proxy = "27.107.27.8:80" not working
 # fallback_proxy = "139.59.1.14:8080"
 # fallback_proxy = "20.219.235.172:3129"
-fallback_proxy = "https://593b-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app"
+fallback_proxy = "http://593b-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app"
 # fallback_proxy = "144.24.102.221:3128"
 residential_proxy = os.getenv("RES_PXY", "0.0.0.0:8080")
 residential_proxy2 = os.getenv("RES_PXY2", "0.0.0.0:8080")
 proxyTimeOut = 10000
 proxyListUrl = f"https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout={proxyTimeOut}&country=IN&ssl=IN&anonymity=IN"
-useFallback = True
+useFallback = False
 
 
 class NoProxyFound(Exception):
