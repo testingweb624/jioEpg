@@ -25,7 +25,7 @@ proxies = {
 # fallback_proxy = "27.107.27.8:80" not working
 # fallback_proxy = "139.59.1.14:8080"
 # fallback_proxy = "20.219.235.172:3129"
-fallback_proxy = "aab1-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app:80"
+#fallback_proxy = "127.0.0.1:8080"
 # fallback_proxy = "144.24.102.221:3128"
 residential_proxy = os.getenv("RES_PXY", "0.0.0.0:8080")
 residential_proxy2 = os.getenv("RES_PXY2", "0.0.0.0:8080")
@@ -107,7 +107,7 @@ def genEPG(i, c):
         while retry_count < MAX_RETRY:
             try:
                 resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, params={"offset": day,
-                                    "channel_id": c['channel_id'], "langId": "6"}, proxies=proxies).json()
+                                    "channel_id": c['channel_id'], "langId": "6"}).json()
                 day == 0 and channel.append({
                     "@id": c['channel_id'],
                     "display-name": c['channel_name'],
@@ -160,17 +160,17 @@ def genEPG(i, c):
 if __name__ == "__main__":
     stime = time.time()
     # prms = {"os": "android", "devicetype": "phone"}
-    if useFallback:
-        httpProxy = fallback_proxy
-    else:
-        httpProxy = get_working_proxy()
-    proxies = {
-        "http": "http://{httpProxy}".format(httpProxy=httpProxy),
-        "https": "http://{httpProxy}".format(httpProxy=httpProxy),
-    }
+    #if useFallback:
+    #    httpProxy = fallback_proxy
+    #else:
+    #    httpProxy = get_working_proxy()
+    #proxies = {
+    #    "http": "http://{httpProxy}".format(httpProxy=httpProxy),
+    #    "https": "http://{httpProxy}".format(httpProxy=httpProxy),
+    #}
     try:
         resp = requests.get(
-            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", proxies=proxies, headers=headersurl)
+            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", headers=headersurl)
         resp.raise_for_status()
         raw = resp.json()
     except HTTPError as exc:
