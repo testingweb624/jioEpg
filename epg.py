@@ -25,7 +25,7 @@ proxies = {
 # fallback_proxy = "27.107.27.8:80" not working
 # fallback_proxy = "139.59.1.14:8080"
 # fallback_proxy = "20.219.235.172:3129"
-#fallback_proxy = "127.0.0.1:8080"
+fallback_proxy = "100.85.223.180:8080"
 # fallback_proxy = "144.24.102.221:3128"
 residential_proxy = os.getenv("RES_PXY", "0.0.0.0:8080")
 residential_proxy2 = os.getenv("RES_PXY2", "0.0.0.0:8080")
@@ -69,8 +69,8 @@ def get_working_proxy():
     proxies = response.text.strip().split("\r\n")
     print(proxies)
     headersurl = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36'}
-    proxies.insert(0, "0.0.0.0:8080")
-    proxies.insert(0, "0.0.0.0:8080")
+    proxies.insert(0, "100.85.223.180:8080")
+    proxies.insert(0, "100.85.223.180:8080")
     working_proxy = None
     for prx in proxies:
         tproxies = {
@@ -106,7 +106,7 @@ def genEPG(i, c):
         retry_count = 0
         while retry_count < MAX_RETRY:
             try:
-                resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, params={"offset": day,
+                resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, fallback_proxy, params={"offset": day,
                                     "channel_id": c['channel_id'], "langId": "6"}).json()
                 day == 0 and channel.append({
                     "@id": c['channel_id'],
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     #}
     try:
         resp = requests.get(
-            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285", headers=headersurl)
+            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285",fallback_proxy, headers=headersurl)
         resp.raise_for_status()
         raw = resp.json()
     except HTTPError as exc:
