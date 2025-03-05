@@ -18,7 +18,7 @@ error = []
 result = []
 done = 0
 proxies = {
-    "http": "http://100.85.223.180:8080",
+    "http": "http://100.85.223.1:8080",
     "https": "https://100.85.223.180:8080",
 }
 # fallback_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
@@ -27,8 +27,9 @@ proxies = {
 # fallback_proxy = "20.219.235.172:3129"
 fallback_proxy = "100.85.223.180:8080"
 # fallback_proxy = "144.24.102.221:3128"
-residential_proxy = os.getenv("RES_PXY", "0.0.0.0:8080")
-residential_proxy2 = os.getenv("RES_PXY2", "0.0.0.0:8080")
+RES_PXY="100.85.223.1:8080"
+residential_proxy = os.getenv("RES_PXY", "100.85.223.1:8080")
+residential_proxy2 = os.getenv("RES_PXY2", "100.85.223.1:8080")
 proxyTimeOut = 10000
 proxyListUrl = f"https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout={proxyTimeOut}&country=IN&ssl=IN&anonymity=IN"
 useFallback = True
@@ -78,7 +79,7 @@ def get_working_proxy():
         }
         try:
             test_url = f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285"
-            response = requests.get(test_url, proxies=tproxies, timeout=5, headers=headersurl)
+            response = requests.get(test_url, proxies=fallback_proxy, timeout=5, headers=headersurl)
 
             if response.status_code == 200:
                 working_proxy = prx
@@ -106,7 +107,7 @@ def genEPG(i, c):
         retry_count = 0
         while retry_count < MAX_RETRY:
             try:
-                resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, proxies=tproxies, params={"offset": day,
+                resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, proxies=fallback_proxy, params={"offset": day,
                                     "channel_id": c['channel_id'], "langId": "6"}).json()
                 day == 0 and channel.append({
                     "@id": c['channel_id'],
@@ -170,7 +171,7 @@ if __name__ == "__main__":
     #}
     try:
         resp = requests.get(
-            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285",proxies=tproxies, headers=headersurl)
+            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285",proxies=fallback_proxy, headers=headersurl)
         resp.raise_for_status()
         raw = resp.json()
     except HTTPError as exc:
