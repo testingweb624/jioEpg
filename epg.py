@@ -18,8 +18,8 @@ error = []
 result = []
 done = 0
 proxies = {
-    "http": "http://aab1-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app",
-    "https": "https://aab1-2401-4900-4e14-c04e-69de-30e8-2f20-f79d.ngrok-free.app",
+    "http": "http://100.85.223.180:8080",
+    "https": "https://100.85.223.180:8080",
 }
 # fallback_proxy = "27.107.27.13:80" #https://premiumproxy.net/search-proxy
 # fallback_proxy = "27.107.27.8:80" not working
@@ -106,7 +106,7 @@ def genEPG(i, c):
         retry_count = 0
         while retry_count < MAX_RETRY:
             try:
-                resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, fallback_proxy, params={"offset": day,
+                resp = requests.get(f"{API}/v1.3/getepg/get", headers=headersurl, proxies=tproxies, params={"offset": day,
                                     "channel_id": c['channel_id'], "langId": "6"}).json()
                 day == 0 and channel.append({
                     "@id": c['channel_id'],
@@ -170,7 +170,7 @@ if __name__ == "__main__":
     #}
     try:
         resp = requests.get(
-            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285",fallback_proxy, headers=headersurl)
+            f"{API}/v3.0/getMobileChannelList/get/?langId=6&os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=285",proxies=tproxies, headers=headersurl)
         resp.raise_for_status()
         raw = resp.json()
     except HTTPError as exc:
